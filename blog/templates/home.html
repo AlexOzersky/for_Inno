@@ -1,0 +1,62 @@
+html
+{% extends 'base.html' %}
+
+{% block title %}Главная страница блога{% endblock %}
+
+{% block content %}
+    <h2>Добро пожаловать в блог!</h2>
+
+    {% if user.is_authenticated %}
+        <h3>Опубликовать новое сообщение</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Опубликовать</button>
+        </form>
+
+        <h3>Ваши сообщения:</h3>
+        <ul>
+            {% for post in posts %}
+                <li>{{ post.title }} от {{ post.author }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Вы не вошли в систему. Пожалуйста, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a> для публикации.</p>
+    {% endif %}
+
+    <h3>Все сообщения:</h3>
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.title }} от {{ post.author }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Поиск сообщений:</h3>
+    <form method="GET" action="{% url 'sql_results' %}">
+        <input type="text" name="query" placeholder="Поиск по заголовку...">
+        <button type="submit">Поиск</button>
+    </form>
+
+    <!-- Бегущая строка -->
+    <div class="marquee">
+        Вселенная - бегущая женщина: Ноги ее вращают землю, Тело трепещет в эфире, А в глазах начинаются звезды. Андрей Платонов.
+    </div>
+
+{% endblock %}
+
+<style>
+    .marquee {
+        width: 100%; /* Ширина бегущей строки */
+        overflow: hidden; /* Скрываем лишний текст */
+        white-space: nowrap; /* Запрещаем перенос строк */
+        box-sizing: border-box; /* Учитываем отступы при ширине */
+        background: #f0f0f0; /* Цвет фона */
+        padding: 10px; /* Отступы */
+        animation: marquee 15s linear infinite;
+    }
+
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+</style>

@@ -1,0 +1,23 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Серверная страница</title>
+</head>
+<body>
+    <h1>Добро пожаловать</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Блог</a></li>
+            <li><a href="{% url 'login' %}">Вход</a></li>
+            <li><a href="{% url 'register' %}">Регистрация</a></li>
+        </ul>
+    </nav>
+    
+    <blockquote>
+        <p>Иногда, когда не спится, я думаю: Господи, ты дал нам громадные леса, необъятные поля, глубочайшие горизонты, и, живя тут, мы сами должны бы по-настоящему быть великанами?</p>
+    </blockquote>
+</body>
+</html>
